@@ -1,0 +1,95 @@
+
+// See: <http://davist11.github.io/nested-responsive-grid/>
+// Recreated by AJC in LESS
+
+#grid(
+  @cols: 12;
+  @gutter: 2%;
+  @max-width: 79rem;
+  @outter-margin: 0 1.25rem;
+) {
+
+  @one_col: (100% - (@gutter * (@cols - 1))) / @cols;
+
+  ._cols(@num) {
+    width: (@one_col * @num) + (@gutter * (@num - 1));
+    margin-left: @gutter;
+  }
+  ._child_cols(@num_child, @num_parent) {
+    @parent_size: (@one_col * @num_parent) + (@gutter * (@num_parent - 1));
+    @child_size: (@one_col * @num_child) + (@gutter * (@num_child - 1));
+    margin-left: (@gutter / @parent_size) * 100%;
+    width: (@child_size / @parent_size) * 100%;
+  }
+
+  ._grandchild_cols(@num_child, @num_parent, @num_grandparent) {
+    @grandparent_size: (@one_col * @num_grandparent) + (@gutter * (@num_grandparent - 1));
+    @parent_size: (@one_col * @num_parent) + (@gutter * (@num_parent - 1));
+    @child_size: (@one_col * @num_child) + (@gutter * (@num_child - 1));
+    margin-left: (@gutter / @parent_size) * 100%;
+    width: (@child_size / @parent_size) * 100%;
+  }
+
+  .row() {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    max-width: @max-width;
+    margin: 0 auto;
+    padding: @outter-margin;
+  }
+  .nested-row() {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    max-width: @max-width;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .mosaic(@col_count; @selector) {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    max-width: @max-width;
+    margin: 0 auto;
+    padding: @outter-margin;
+
+    @escaped_selector: e(@selector);
+
+    @{escaped_selector} {
+      .span(@cols / @col_count);
+      margin-top: @gutter;
+      &:nth-child(-n + @{col_count}) {
+        margin-top: 0; // all after first row
+      }
+      &:nth-child(@{col_count}n + 1) {
+        .first-col();
+      }
+    }
+  }
+
+  .span(@span_def) {
+    // #grid;.span(2);
+
+    & when (length(@span_def) = 1) and (isnumber(@span_def)) {
+      ._cols(@span_def);
+    }
+    // #grid;.span(2 of 5);
+    & when (length(@span_def) = 3) {
+      @child: extract(@span_def, 1);
+      @parent: extract(@span_def, 3);
+      ._child_cols(@child; @parent);
+    }
+    // #grid;.span(5 of 10 of 12);
+    & when (length(@span_def) = 5) {
+      @child: extract(@span_def, 1);
+      @parent: extract(@span_def, 3);
+      @grandparent: extract(@span_def, 5);
+      ._grandchild_cols(@child; @parent; @grandparent);
+    }
+  }
+  .first-col() {
+    margin-left: 0;
+  }
+}
