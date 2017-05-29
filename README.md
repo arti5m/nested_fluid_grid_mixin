@@ -1,6 +1,6 @@
 # Nested Fluid Grid Mixin (LESS)
 
-**tl;dr** Make your grids on the presentation layer for fun and profit.
+**tl;dr: Make your grids on the presentation layer for fun and profit.**
 
 Most of the grid systems I've found suffer from one limitation: they rely on utility classes in the markup. Utility classes are a great convenience when you have complete control over the markup, but often you don't have that control, and when you do, the implementation is involved.
 
