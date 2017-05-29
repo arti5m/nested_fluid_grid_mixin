@@ -10,7 +10,7 @@ But, you know, this is nobody's fault. It's also not your problem anymore.
 
 ## Enter the mixin
 
-The Nested Fluid Grid Mixin adapts [my LESS dealy](https://github.com/arti5m/nested_fluid_grid) (based on davist11's [nested-responsive-grid](http://davist11.github.io/nested-responsive-grid/)) for use as a convenient LESS mixin to facilitate authoring grids on the presentation layer--where they probably belong.
+The Nested Fluid Grid Mixin adapts [my LESS grid dealy](https://github.com/arti5m/nested_fluid_grid) (based on davist11's [nested-responsive-grid](http://davist11.github.io/nested-responsive-grid/)) for use as a convenient LESS mixin to facilitate authoring grids on the presentation layer--where they probably belong.
 
 ## Example usage
 
